@@ -1,4 +1,4 @@
-import { createProject } from "./createProject.js";
+import { createProject } from "./logicJS/createProject.js";
 
 const defaultProject = createProject("Default");
 
