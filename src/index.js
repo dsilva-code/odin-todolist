@@ -1,4 +1,7 @@
-import { createTodo } from "./createTodo.js";
+import { createProject } from "./createProject.js";
 
-const firstTask = createTodo("Hello");
-console.log(firstTask);
+const defaultProject = createProject("Default");
+
+
+defaultProject.addTodo("Yo", "Say Yo");
+console.log(defaultProject);
