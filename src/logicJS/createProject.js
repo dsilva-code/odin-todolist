@@ -9,7 +9,16 @@ function createProject (projectName) {
         todoList.push(newTodo);
     }
     
-    return { name, todoList, addTodo }
+    function getTodo() {
+        if (todoList.length === 0) {
+            console.log("Empty Todo");
+        }
+        else {
+            return todoList;
+        }
+            
+    }
+    return { name, todoList, addTodo, getTodo }
 }
 
 export { createProject };
