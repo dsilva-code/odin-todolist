@@ -8,9 +8,7 @@ function createProject (projectName) {
         const newTodo = createTodo(name, description, dueDate, priority, notes);
         todoList.push(newTodo);
     }
-
     
-
     return { name, todoList, addTodo }
 }
 
