@@ -11,7 +11,22 @@
             <button id="currentProject"></button>
             <button id="homeProject">Home</button>
             <button id="seeProjects">...</button>
-            <button id="addTask">Add Task</button>
+            <button id="addTask" command="show-modal" commandfor="my-dialog">Add Task</button>
+            <dialog id="my-dialog">
+                <form id="todoForm">
+                    <label for="todoName">Name:</label>
+                    <input type="text" name="todoName" id="todoName">
+                    <label for="todoDescription">Description:</label>
+                    <input type="text" name="todoDescription" id="todoDescription">
+                    <label for="todoDueDate">Due Date:</label>
+                    <input type="date" name="todoDueDate" id="todoDueDate">
+                    <label for="todoPriority">Priority:</label>
+                    <input type="number" name="todoPriority" id="todoPriority">
+                    <label for="todoNote">Note:</label>
+                    <input type="text" name="todoNote" id="todoNote">
+                    <input type="submit" name="todoSubmut" id="todoSubmit">
+                </form>
+            </dialog>
         </nav>
     </header>
     <div id="projectContent">
