@@ -1,4 +1,5 @@
-import { todoStorage, getStorage } from "../storageJS/storage.js";
+import { todoStorage, getStorage} from "../storageJS/storage.js";
+
 
 
 function createHomePage(homeProject) {
@@ -13,12 +14,13 @@ function createHomePage(homeProject) {
     }
     
 
-
     const todoList = document.createElement("ul");
     todoList.setAttribute("id", "todo")
 
     projectContent.appendChild(todoList);
     
+
+
     const homeList = homeProject.getTodo();
 
     if (homeList) {
@@ -29,7 +31,6 @@ function createHomePage(homeProject) {
             todoList.appendChild(list);
         }
     }
-
 }
 
 function submitTodo(currentProject) {
@@ -49,7 +50,6 @@ function submitTodo(currentProject) {
         
         dialog.close();
     });
-    
 }
 
 export { createHomePage, submitTodo }

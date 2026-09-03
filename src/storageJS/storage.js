@@ -1,8 +1,6 @@
-function todoStorage(projectObject) {
-
-   const todoSerial = JSON.stringify(projectObject);
+function todoStorage(projectArray) {
+   const todoSerial = JSON.stringify(projectArray);
    localStorage.setItem("todo", todoSerial);
-
 }
 
 function getStorage() {
@@ -10,4 +8,9 @@ function getStorage() {
     return todoDeserial;
 }
 
-export { todoStorage, getStorage }
+function mergeList(projectObject) {
+    const storedArray = getStorage();
+    projectObject.addStoredTodo(storedArray);
+}
+
+export { todoStorage, getStorage, mergeList }

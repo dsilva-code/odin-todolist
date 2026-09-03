@@ -11,13 +11,21 @@ function createProject (projectName) {
     
     function getTodo() {
         if (todoList.length === 0) {
-            return 0;
+            return todoList;
         }
         else {
             return todoList;
         }
     }
-    return { name, todoList, addTodo, getTodo }
+
+    function addStoredTodo (array) {
+        for (const element of array) {
+            console.log(element);
+            todoList.push(element)
+        }
+    }
+    
+    return { name, todoList, addTodo, getTodo, addStoredTodo}
 }
 
 export { createProject };
