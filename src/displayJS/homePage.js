@@ -1,3 +1,6 @@
+import { todoStorage, getStorage } from "../storageJS/storage.js";
+
+
 function createHomePage(homeProject) {
     const projectContent = document.querySelector("#projectContent")
     const currentProject = document.querySelector("#currentProject");
@@ -42,6 +45,7 @@ function submitTodo(currentProject) {
 
         currentProject.addTodo(todoName, todoDescription, todoDueDate, todoPriority, todoNote);
         createHomePage(currentProject);
+        todoStorage(currentProject.getTodo()); // Save the whole todo list
         
         dialog.close();
     });

@@ -11,12 +11,11 @@ function createProject (projectName) {
     
     function getTodo() {
         if (todoList.length === 0) {
-            console.log("Empty Todo");
+            return 0;
         }
         else {
             return todoList;
         }
-            
     }
     return { name, todoList, addTodo, getTodo }
 }
