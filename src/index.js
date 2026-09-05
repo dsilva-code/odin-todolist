@@ -1,5 +1,5 @@
 import { createProject } from "./logicJS/createProject.js";
-import { createHomePage, submitTodo } from "./displayJS/homePage.js";
+import { createHomePage, submitTodo } from "./displayJS/display.js";
 import { getStorage, mergeList } from "./storageJS/storage.js";
 
 

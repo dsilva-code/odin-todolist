@@ -10,7 +10,9 @@ function getStorage() {
 
 function mergeList(projectObject) {
     const storedArray = getStorage();
-    projectObject.addStoredTodo(storedArray);
+    if(storedArray) {
+        projectObject.addStoredTodo(storedArray);
+    }
 }
 
 export { todoStorage, getStorage, mergeList }

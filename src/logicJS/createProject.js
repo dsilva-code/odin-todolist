@@ -20,7 +20,6 @@ function createProject (projectName) {
 
     function addStoredTodo (array) {
         for (const element of array) {
-            console.log(element);
             todoList.push(element)
         }
     }
