@@ -22,7 +22,8 @@ function createHomePage(homeProject) {
     if (homeList) {
         for (const element of homeList) {
             const list = document.createElement("li");
-            list.textContent = element.name + " Due Date " + element.dueDate;
+            element.dueDate = element.dueDate.slice(5); // Cut the year out
+            list.textContent = element.name + " Due Date: " + element.dueDate;
             list.setAttribute("class", "todoItem")
             todoList.appendChild(list);
         }
