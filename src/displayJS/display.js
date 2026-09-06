@@ -22,9 +22,24 @@ function createHomePage(homeProject) {
     if (homeList) {
         for (const element of homeList) {
             const list = document.createElement("li");
-            list.textContent = element.name + " Due Date: " + element.dueDate;
+            const label = document.createElement("span");
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = element.checked;
+            
+            checkbox.addEventListener("change", () => {
+                element.checkbox = checkbox.checked;
+            });
+            
+            label.textContent = element.name + " Due Date: " + element.dueDate;
+            console.log(label);
             list.setAttribute("class", "todoItem")
+
+            list.appendChild(checkbox);
+            list.appendChild(label);
             todoList.appendChild(list);
+            
             let activate = false;
             list.addEventListener("click", () => {
                 if (!activate) {
@@ -89,8 +104,6 @@ function shrinkTodo(todoItem, listLoc) {
     if (extended) {
         extended.remove();
     }
-
-    console.log(extended);
 }
 
 export { createHomePage, submitTodo }
