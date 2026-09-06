@@ -28,10 +28,6 @@ function createHomePage(homeProject) {
             checkbox.type = "checkbox";
             checkbox.checked = element.checked;
             
-            checkbox.addEventListener("change", () => {
-                element.checkbox = checkbox.checked;
-            });
-            
             label.textContent = element.name + " Due Date: " + element.dueDate;
             console.log(label);
             list.setAttribute("class", "todoItem")
@@ -41,13 +37,25 @@ function createHomePage(homeProject) {
             todoList.appendChild(list);
             
             let activate = false;
-            list.addEventListener("click", () => {
+
+            label.addEventListener("click", () => {
                 if (!activate) {
                     expandTodo(element, list);
                     activate = true;
                 } else {
                     shrinkTodo(element, list);
                     activate = false;
+                }
+            });
+
+            let activateStatus = false;
+            list.addEventListener("change", () => {
+                if (!activateStatus) {
+                    element.status = "Finished"
+                    activateStatus = true;
+                } else {
+                    element.status = "Not Finished"
+                    activateStatus = false;
                 }
             });
         }
