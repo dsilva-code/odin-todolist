@@ -25,8 +25,15 @@ function createHomePage(homeProject) {
             list.textContent = element.name + " Due Date: " + element.dueDate;
             list.setAttribute("class", "todoItem")
             todoList.appendChild(list);
+            let activate = false;
             list.addEventListener("click", () => {
-                expandTodo(element, list);
+                if (!activate) {
+                    expandTodo(element, list);
+                    activate = true;
+                } else {
+                    shrinkTodo(element, list);
+                    activate = false;
+                }
             });
         }
     }
@@ -75,6 +82,15 @@ function expandTodo(todoItem, listLoc) {
     extendTodo.appendChild(todoStatus);
     todoStatus.textContent = "Status: " + todoItem.status;
 
+}
+
+function shrinkTodo(todoItem, listLoc) {
+    const extended = listLoc.lastChild;
+    if (extended) {
+        extended.remove();
+    }
+
+    console.log(extended);
 }
 
 export { createHomePage, submitTodo }
