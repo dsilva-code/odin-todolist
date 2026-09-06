@@ -22,10 +22,12 @@ function createHomePage(homeProject) {
     if (homeList) {
         for (const element of homeList) {
             const list = document.createElement("li");
-            element.dueDate = element.dueDate.slice(5); // Cut the year out
             list.textContent = element.name + " Due Date: " + element.dueDate;
             list.setAttribute("class", "todoItem")
             todoList.appendChild(list);
+            list.addEventListener("click", () => {
+                expandTodo(element, list);
+            });
         }
     }
 }
@@ -47,6 +49,32 @@ function submitTodo(currentProject) {
         
         dialog.close();
     });
+}
+
+function expandTodo(todoItem, listLoc) {
+    const extendTodo = document.createElement("ul");
+    listLoc.appendChild(extendTodo);
+
+    const todoDesc = document.createElement("li");
+    extendTodo.appendChild(todoDesc);
+    todoDesc.textContent = "Description:" + todoItem.description;
+
+    const todoDueDate = document.createElement("li");
+    extendTodo.appendChild(todoDueDate);
+    todoDueDate.textContent = "Due Date: " + todoItem.dueDate;
+
+    const todoPriority = document.createElement("li");
+    extendTodo.appendChild(todoPriority);
+    todoPriority.textContent = "Priority: " + todoItem.priority;
+
+    const todoNote = document.createElement("li");
+    extendTodo.appendChild(todoNote);
+    todoNote.textContent = "Note: " + todoItem.notes;
+
+    const todoStatus = document.createElement("li");
+    extendTodo.appendChild(todoStatus);
+    todoStatus.textContent = "Status: " + todoItem.status;
+
 }
 
 export { createHomePage, submitTodo }

@@ -5,7 +5,7 @@ function createTodo (cTitle, cDescription, cDueDate, cPriority, cNote) {
     const dueDate = cDueDate;
     const priority = cPriority;
     const notes = cNote;
-    const status = "notFinished";
+    const status = "Not Finished";
     //const checklist = cChecklist; Commented out for now, I will figure this out later
 
     return { id, name, description, dueDate, priority, notes, status };
