@@ -131,6 +131,7 @@ function addProject() {
         newProject.textContent = pName.value;
         projectList.appendChild(newProject);
         createProjectObject(pName.value);
+        
     });
 }
 
