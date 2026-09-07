@@ -53,6 +53,8 @@ function createHomePage(homeProject) {
                 if (!activateStatus) {
                     element.status = "Finished"
                     activateStatus = true;
+                    homeProject.removeTodo(element);
+                    createHomePage(homeProject);
                 } else {
                     element.status = "Not Finished"
                     activateStatus = false;

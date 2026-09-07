@@ -1,4 +1,5 @@
 import { createTodo } from "./createTodo.js";
+import { removeStoredTodo } from "../storageJS/storage.js";
 
 function createProject (projectName) {
     const name = projectName
@@ -23,8 +24,16 @@ function createProject (projectName) {
             todoList.push(element)
         }
     }
+
+    function removeTodo (removeTodo) {
+        if(removeTodo.id) {
+            let removeIndex = todoList.findIndex(obj => obj.id === removeTodo.id);
+            removeStoredTodo(removeIndex);
+            todoList.splice(removeIndex, 1)
+        }
+    }
     
-    return { name, todoList, addTodo, getTodo, addStoredTodo}
+    return { name, todoList, addTodo, getTodo, addStoredTodo, removeTodo}
 }
 
 export { createProject };

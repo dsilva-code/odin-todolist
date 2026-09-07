@@ -15,4 +15,10 @@ function mergeList(projectObject) {
     }
 }
 
-export { todoStorage, getStorage, mergeList }
+function removeStoredTodo(removeTodoIndex) {
+    const projectArray = getStorage();
+    projectArray.splice(removeTodoIndex, 1);
+    todoStorage(projectArray);
+}
+
+export { todoStorage, getStorage, mergeList, removeStoredTodo }
