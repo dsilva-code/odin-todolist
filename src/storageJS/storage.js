@@ -22,18 +22,29 @@ function removeStoredTodo(removeTodoIndex, projectName) {
 }
 
 function allStorage(projects) {
-    console.log("Yo");
     const projectsSerial = JSON.stringify(projects);
-   localStorage.setItem("all", projectsSerial);
+    localStorage.setItem("all", projectsSerial);
 }
 
-function getProjectStorage() {
+function getAllStorage() {
     const projectsDeserial = JSON.parse(localStorage.getItem("all"));
-    return projectsDeserial;
+    if(projectsDeserial){
+        return projectsDeserial.todoProjects;
+    }
+    
 }
 
-function loadProjectList() {
+function mergeAllStorage(projects) {
+    const allStoredProjects = getAllStorage();
+
+    if(allStoredProjects) {
+        for (const element of allStoredProjects) {
+            projects.addProject(element);
+        }
+    }
 
 }
 
-export { todoStorage, getStorage, mergeList, removeStoredTodo, allStorage, getProjectStorage }
+
+
+export { todoStorage, getStorage, mergeList, removeStoredTodo, allStorage, getAllStorage, mergeAllStorage}

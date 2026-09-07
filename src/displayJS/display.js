@@ -1,9 +1,9 @@
-import { todoStorage, getStorage} from "../storageJS/storage.js";
+import { todoStorage, getStorage, getAllStorage} from "../storageJS/storage.js";
 import { createProjectObject } from "../index.js";
 
 function createHomePage(homeProject) {
-
     addProject();
+    createProjectButtons();
 
     const projectContent = document.querySelector("#projectContent")
     const currentProject = document.querySelector("#currentProject");
@@ -133,6 +133,21 @@ function addProject() {
         createProjectObject(pName.value);
         
     });
+}
+
+function createProjectButtons() {
+    const allProjects = getAllStorage();
+
+    console.log(allProjects);
+    for (const element of allProjects) {
+
+    const projectList = document.querySelector("#projectList");
+    const newProject = document.createElement("button");
+
+    newProject.textContent = element.name;
+    projectList.appendChild(newProject);
+    
+    }
 }
 
 export { createHomePage, submitTodo }
