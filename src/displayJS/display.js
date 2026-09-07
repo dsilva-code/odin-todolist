@@ -1,6 +1,9 @@
 import { todoStorage, getStorage} from "../storageJS/storage.js";
 
 function createHomePage(homeProject) {
+
+    addProject();
+
     const projectContent = document.querySelector("#projectContent")
     const currentProject = document.querySelector("#currentProject");
 
@@ -114,6 +117,20 @@ function shrinkTodo(todoItem, listLoc) {
     if (extended) {
         extended.remove();
     }
+}
+
+function addProject() {
+    const createProject = document.querySelector("#projectSubmit");
+
+    createProject.addEventListener("click", () => {
+        event.preventDefault();
+        const pName = document.querySelector("#projectName");
+        const projectList = document.querySelector("#projectList");
+        const newProject = document.createElement("button");
+
+        newProject.textContent = pName.value;
+        projectList.appendChild(newProject);
+    });
 }
 
 export { createHomePage, submitTodo }

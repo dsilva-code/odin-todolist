@@ -8,7 +8,25 @@
 <body>
     <header>
         <nav>
-            <button id="currentProject"></button>
+            <button id="currentProject" command="show-modal" commandfor="project-dialog"></button>
+            <dialog id="project-dialog">
+                    <div id="projectList">
+
+                        
+                    </div>
+                    <br>
+                <button id="cProject" command="show-modal" commandfor="cProject-dialog" >Create Project</button>
+                <dialog id="cProject-dialog">
+
+                    <form id="projectForm">
+                        <label for="projectName">Project Name:</label>
+                        <input type="text" name="projectName" id="projectName">
+                    </form>
+                    <input type="submit" name="projectSubmut" id="projectSubmit">
+                    <button commandfor="cProject-dialog" command="close">Close</button>
+                </dialog>
+                <button commandfor="project-dialog" command="close">Close</button>
+            </dialog>
             <button id="homeProject">Home</button>
             <button id="seeProjects">...</button>
             <button id="addTask" command="show-modal" commandfor="my-dialog">Add Task</button>
