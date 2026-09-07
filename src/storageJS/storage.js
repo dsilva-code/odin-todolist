@@ -1,24 +1,24 @@
-function todoStorage(projectArray) {
-   const todoSerial = JSON.stringify(projectArray);
-   localStorage.setItem("todo", todoSerial);
+function todoStorage(projectArray, projectName) {
+    const todoSerial = JSON.stringify(projectArray);
+    localStorage.setItem(projectName, todoSerial);
 }
 
-function getStorage() {
-    const todoDeserial = JSON.parse(localStorage.getItem("todo"));
+function getStorage(projectName) {
+    const todoDeserial = JSON.parse(localStorage.getItem(projectName));
     return todoDeserial;
 }
 
-function mergeList(projectObject) {
-    const storedArray = getStorage();
+function mergeList(projectObject, projectName) {
+    const storedArray = getStorage(projectName);
     if(storedArray) {
         projectObject.addStoredTodo(storedArray);
     }
 }
 
-function removeStoredTodo(removeTodoIndex) {
-    const projectArray = getStorage();
+function removeStoredTodo(removeTodoIndex, projectName) {
+    const projectArray = getStorage(projectName);
     projectArray.splice(removeTodoIndex, 1);
-    todoStorage(projectArray);
+    todoStorage(projectArray, projectName);
 }
 
 export { todoStorage, getStorage, mergeList, removeStoredTodo }

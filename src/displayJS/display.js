@@ -1,4 +1,5 @@
 import { todoStorage, getStorage} from "../storageJS/storage.js";
+import { createProjectObject } from "../index.js";
 
 function createHomePage(homeProject) {
 
@@ -32,7 +33,7 @@ function createHomePage(homeProject) {
             checkbox.checked = element.checked;
             
             label.textContent = element.name + " Due Date: " + element.dueDate;
-            console.log(label);
+
             list.setAttribute("class", "todoItem")
 
             list.appendChild(checkbox);
@@ -80,8 +81,7 @@ function submitTodo(currentProject) {
 
         currentProject.addTodo(todoName, todoDescription, todoDueDate, todoPriority, todoNote);
         createHomePage(currentProject);
-        todoStorage(currentProject.getTodo()); // Save the whole todo list
-        
+        todoStorage(currentProject.getTodo(), currentProject.name); // Save the whole todo list
         dialog.close();
     });
 }
@@ -130,6 +130,7 @@ function addProject() {
 
         newProject.textContent = pName.value;
         projectList.appendChild(newProject);
+        createProjectObject(pName.value);
     });
 }
 

@@ -28,7 +28,7 @@ function createProject (projectName) {
     function removeTodo (removeTodo) {
         if(removeTodo.id) {
             let removeIndex = todoList.findIndex(obj => obj.id === removeTodo.id);
-            removeStoredTodo(removeIndex);
+            removeStoredTodo(removeIndex, name);
             todoList.splice(removeIndex, 1)
         }
     }
