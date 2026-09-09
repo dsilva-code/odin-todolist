@@ -20,6 +20,10 @@ function createProject (projectName) {
         }
     }
 
+    function getID() {
+        return id;
+    }
+
     function addStoredTodo (array) {
         for (const element of array) {
             todoList.push(element)
@@ -34,7 +38,7 @@ function createProject (projectName) {
         }
     }
     
-    return { name, todoList, addTodo, getTodo, addStoredTodo, removeTodo}
+    return { id, name, todoList, addTodo, getTodo, getID, addStoredTodo, removeTodo}
 }
 
 export { createProject };

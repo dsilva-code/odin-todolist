@@ -125,12 +125,14 @@ function addProject() {
     createProject.addEventListener("click", () => {
         event.preventDefault();
         const pName = document.querySelector("#projectName");
+        
         const projectList = document.querySelector("#projectList");
         const newProject = document.createElement("button");
+        newProject.dataset.id = createProjectObject(pName.value);
 
         newProject.textContent = pName.value;
         projectList.appendChild(newProject);
-        createProjectObject(pName.value);
+        
         
     });
 }
@@ -143,6 +145,7 @@ function importProjectButtons() {
 
         const projectList = document.querySelector("#projectList");
         const newProject = document.createElement("button");
+        newProject.dataset.id = element.id;
         newProject.setAttribute("class", "projectButtons")
 
         newProject.textContent = element.name;
@@ -150,7 +153,6 @@ function importProjectButtons() {
         
         }
     }
-
 }
 
 function changeProjects() {

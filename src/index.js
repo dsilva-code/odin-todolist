@@ -15,6 +15,7 @@ function createProjectObject (projectName) {;
     const newProject = createProject(projectName);
     allProjects.addProject(newProject);
     allStorage(allProjects); //Adds to allStorage
+    return (newProject.getID());
    // merge stored items to list mergeList(newProject);
    // create the display for the page  createHomePage(newProject);
    // submit the todo to the project object list submitTodo(newProject);
