@@ -4,6 +4,7 @@ import { createProjectObject } from "../index.js";
 function createHomePage(homeProject) {
     addProject();
     importProjectButtons();
+    changeProjects();
 
     const projectContent = document.querySelector("#projectContent")
     const currentProject = document.querySelector("#currentProject");
@@ -66,6 +67,8 @@ function createHomePage(homeProject) {
             });
         }
     }
+
+
 }
 
 function submitTodo(currentProject) {
@@ -128,6 +131,7 @@ function addProject() {
         
         const projectList = document.querySelector("#projectList");
         const newProject = document.createElement("button");
+        newProject.setAttribute("class", "projectButtons")
         newProject.dataset.id = createProjectObject(pName.value);
 
         newProject.textContent = pName.value;
@@ -156,7 +160,15 @@ function importProjectButtons() {
 }
 
 function changeProjects() {
-
+    const projectButtons = document.querySelectorAll(".projectButtons")
+    
+    if(projectButtons) {
+        for(const element of projectButtons) {
+            element.addEventListener("click", () => {
+                
+            });
+        }
+    }
 }
 
 export { createHomePage, submitTodo }

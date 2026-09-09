@@ -7,6 +7,7 @@ const allProjects = createAllStorage();
 mergeAllStorage(allProjects);
 
 const homeProject = createProject("Home");
+allProjects.addProject(homeProject);
 mergeList(homeProject, homeProject.name);
 createHomePage(homeProject);
 submitTodo(homeProject);
@@ -20,5 +21,16 @@ function createProjectObject (projectName) {;
    // create the display for the page  createHomePage(newProject);
    // submit the todo to the project object list submitTodo(newProject);
 }
+
+function switchProject(projectID) {
+    //getAllStorage
+    //Find projectID in allStorage
+    //remove current todo list
+    //import newTodo list
+    //in display.js rerun the display logic
+    //in the switch project display, update the name
+};
+
+console.log(allProjects);
 
 export {createProjectObject}
