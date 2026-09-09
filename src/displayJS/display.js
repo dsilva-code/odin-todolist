@@ -148,15 +148,18 @@ function importProjectButtons() {
 
     if(allProjects) {
         for (const element of allProjects) {
-
-        const projectList = document.querySelector("#projectList");
-        const newProject = document.createElement("button");
-        newProject.dataset.id = element.id;
-        newProject.setAttribute("class", "projectButtons")
-
-        newProject.textContent = element.name;
-        projectList.appendChild(newProject);
         
+        if (element.name !== "Home") {
+            const projectList = document.querySelector("#projectList");
+            const newProject = document.createElement("button");
+            newProject.dataset.id = element.id;
+            newProject.setAttribute("class", "projectButtons")
+
+            newProject.textContent = element.name;
+            projectList.appendChild(newProject);
+            
+        }
+
         }
     }
 }
@@ -167,7 +170,7 @@ function changeProjectsButtons() {
     if(projectButtons) {
         for(const element of projectButtons) {
             element.addEventListener("click", () => {
-
+                console.log("clicked")
             });
         }
     }
