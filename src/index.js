@@ -22,14 +22,7 @@ function createProjectObject (projectName) {;
    // submit the todo to the project object list submitTodo(newProject);
 }
 
-function switchProject(projectID) {
-    //getAllStorage
-    //Find projectID in allStorage
-    //remove current todo list
-    //import newTodo list
-    //in display.js rerun the display logic
-    //in the switch project display, update the name
-};
+
 
 console.log(allProjects);
 
