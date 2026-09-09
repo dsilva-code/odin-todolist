@@ -3,7 +3,7 @@ import { createProjectObject } from "../index.js";
 
 function createHomePage(homeProject) {
     addProject();
-    createProjectButtons();
+    importProjectButtons();
 
     const projectContent = document.querySelector("#projectContent")
     const currentProject = document.querySelector("#currentProject");
@@ -135,7 +135,7 @@ function addProject() {
     });
 }
 
-function createProjectButtons() {
+function importProjectButtons() {
     const allProjects = getAllStorage();
 
     console.log(allProjects);
@@ -152,7 +152,7 @@ function createProjectButtons() {
 }
 
 function changeProjects() {
-    
+
 }
 
 export { createHomePage, submitTodo }

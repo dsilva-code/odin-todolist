@@ -2,6 +2,7 @@ import { createTodo } from "./createTodo.js";
 import { removeStoredTodo } from "../storageJS/storage.js";
 
 function createProject (projectName) {
+    const id = self.crypto.randomUUID();
     const name = projectName
     const todoList = [];
 
