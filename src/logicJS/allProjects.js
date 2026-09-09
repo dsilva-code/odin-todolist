@@ -1,5 +1,5 @@
 
-function createProjects () {
+function createAllStorage () {
     const todoProjects = []
 
     function addProject(projectName) {
@@ -14,4 +14,4 @@ function createProjects () {
 
 }
 
-export {createProjects}
+export {createAllStorage}

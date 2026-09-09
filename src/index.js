@@ -1,11 +1,10 @@
 import { createProject } from "./logicJS/createProject.js";
 import { createHomePage, submitTodo } from "./displayJS/display.js";
 import { getStorage, mergeList, allStorage, getAllStorage, mergeAllStorage } from "./storageJS/storage.js";
-import { createProjects } from "./logicJS/createProjects.js";
+import { createAllStorage} from "./logicJS/allProjects.js";
 
-const allProjects = createProjects();
+const allProjects = createAllStorage();
 mergeAllStorage(allProjects);
-
 
 const homeProject = createProject("Home");
 mergeList(homeProject, homeProject.name);
@@ -15,8 +14,7 @@ submitTodo(homeProject);
 function createProjectObject (projectName) {;
     const newProject = createProject(projectName);
     allProjects.addProject(newProject);
-    allStorage(allProjects);
-    console.log(getAllStorage());
+    allStorage(allProjects); //Adds to allStorage
    // merge stored items to list mergeList(newProject);
    // create the display for the page  createHomePage(newProject);
    // submit the todo to the project object list submitTodo(newProject);
