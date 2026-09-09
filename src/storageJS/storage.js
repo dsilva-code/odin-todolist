@@ -17,8 +17,11 @@ function mergeList(projectObject, projectName) {
 
 function removeStoredTodo(removeTodoIndex, projectName) {
     const projectArray = getStorage(projectName);
-    projectArray.splice(removeTodoIndex, 1);
-    todoStorage(projectArray, projectName);
+    if(projectArray) {
+        projectArray.splice(removeTodoIndex, 1);
+        todoStorage(projectArray, projectName);
+    }
+
 }
 
 function allStorage(projects) {

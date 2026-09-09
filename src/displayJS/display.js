@@ -1,10 +1,11 @@
 import { todoStorage, getStorage, getAllStorage} from "../storageJS/storage.js";
 import { createProjectObject } from "../index.js";
+import { switchProject } from "../logicJS/changeProject.js";
 
 function createHomePage(homeProject) {
     addProject();
     importProjectButtons();
-    changeProjects();
+    changeProjectsButtons();
 
     const projectContent = document.querySelector("#projectContent")
     const currentProject = document.querySelector("#currentProject");
@@ -85,6 +86,7 @@ function submitTodo(currentProject) {
         currentProject.addTodo(todoName, todoDescription, todoDueDate, todoPriority, todoNote);
         createHomePage(currentProject);
         todoStorage(currentProject.getTodo(), currentProject.name); // Save the whole todo list
+        console.log(currentProject.getTodo())
         dialog.close();
     });
 }
@@ -159,13 +161,13 @@ function importProjectButtons() {
     }
 }
 
-function changeProjects() {
+function changeProjectsButtons() {
     const projectButtons = document.querySelectorAll(".projectButtons")
     
     if(projectButtons) {
         for(const element of projectButtons) {
             element.addEventListener("click", () => {
-                
+
             });
         }
     }

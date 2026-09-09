@@ -41,4 +41,44 @@ function createProject (projectName) {
     return { id, name, todoList, addTodo, getTodo, getID, addStoredTodo, removeTodo}
 }
 
-export { createProject };
+function importProjectFunctions(projectName, projectID, projectList) {
+    const id = projectID;
+    const name = projectName
+    const todoList = projectList;
+
+    function addTodo(name, description, dueDate, priority, notes){
+        const newTodo = createTodo(name, description, dueDate, priority, notes);
+        todoList.push(newTodo);
+    }
+    
+    function getTodo() {
+        if (todoList.length === 0) {
+            return todoList;
+        }
+        else {
+            return todoList;
+        }
+    }
+
+    function getID() {
+        return id;
+    }
+
+    function addStoredTodo (array) {
+        for (const element of array) {
+            todoList.push(element)
+        }
+    }
+
+    function removeTodo (removeTodo) {
+        if(removeTodo.id) {
+            let removeIndex = todoList.findIndex(obj => obj.id === removeTodo.id);
+            removeStoredTodo(removeIndex, name);
+            todoList.splice(removeIndex, 1)
+        }
+    }
+    
+    return { id, name, todoList, addTodo, getTodo, getID, addStoredTodo, removeTodo}
+};
+
+export { createProject, importProjectFunctions };
