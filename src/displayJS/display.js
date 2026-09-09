@@ -143,11 +143,16 @@ function createProjectButtons() {
 
     const projectList = document.querySelector("#projectList");
     const newProject = document.createElement("button");
+    newProject.setAttribute("class", "projectButtons")
 
     newProject.textContent = element.name;
     projectList.appendChild(newProject);
     
     }
+}
+
+function changeProjects() {
+    
 }
 
 export { createHomePage, submitTodo }
