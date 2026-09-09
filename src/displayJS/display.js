@@ -138,17 +138,19 @@ function addProject() {
 function importProjectButtons() {
     const allProjects = getAllStorage();
 
-    console.log(allProjects);
-    for (const element of allProjects) {
+    if(allProjects) {
+        for (const element of allProjects) {
 
-    const projectList = document.querySelector("#projectList");
-    const newProject = document.createElement("button");
-    newProject.setAttribute("class", "projectButtons")
+        const projectList = document.querySelector("#projectList");
+        const newProject = document.createElement("button");
+        newProject.setAttribute("class", "projectButtons")
 
-    newProject.textContent = element.name;
-    projectList.appendChild(newProject);
-    
+        newProject.textContent = element.name;
+        projectList.appendChild(newProject);
+        
+        }
     }
+
 }
 
 function changeProjects() {
