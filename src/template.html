@@ -16,13 +16,13 @@
                     </div>
                     <br>
                 <button id="cProject" command="show-modal" commandfor="cProject-dialog" >Create Project</button>
-                <dialog id="cProject-dialog">
+                <dialog id="cProject-dialog"> 
 
                     <form id="projectForm">
                         <label for="projectName">Project Name:</label>
-                        <input type="text" name="projectName" id="projectName">
-                    </form>
+                        <input type="text" name="projectName" id="projectName" required>
                     <input type="submit" name="projectSubmut" id="projectSubmit">
+                    </form>
                     <button commandfor="cProject-dialog" command="close">Close</button>
                 </dialog>
                 <button commandfor="project-dialog" command="close">Close</button>
@@ -33,7 +33,7 @@
             <dialog id="my-dialog">
                 <form id="todoForm">
                     <label for="todoName">Name:</label>
-                    <input type="text" name="todoName" id="todoName">
+                    <input type="text" name="todoName" id="todoName" required>
                     <label for="todoDescription">Description:</label>
                     <input type="text" name="todoDescription" id="todoDescription">
                     <label for="todoDueDate">Due Date:</label>

@@ -69,6 +69,74 @@ function createHomePage(homeProject) {
         }
     }
 
+}
+
+function createSwitchedProject(homeProject) {
+    addProject()
+    changeProjectsButtons();
+
+    const projectContent = document.querySelector("#projectContent")
+    const currentProject = document.querySelector("#currentProject");
+
+    currentProject.textContent = "Current Project: Home"
+
+    const oldTodoList = document.querySelector("#todo");
+    if(oldTodoList) {
+        oldTodoList.remove();
+    }
+    
+    const todoList = document.createElement("ul");
+    todoList.setAttribute("id", "todo")
+
+
+    projectContent.appendChild(todoList);
+    
+    const homeList = homeProject.getTodo();
+   
+
+    if (homeList) {
+        for (const element of homeList) {
+            const list = document.createElement("li");
+            const label = document.createElement("span");
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = element.checked;
+            
+            label.textContent = element.name + " Due Date: " + element.dueDate;
+
+            list.setAttribute("class", "todoItem")
+
+            list.appendChild(checkbox);
+            list.appendChild(label);
+            todoList.appendChild(list);
+            
+            let activate = false;
+
+            label.addEventListener("click", () => {
+                if (!activate) {
+                    expandTodo(element, list);
+                    activate = true;
+                } else {
+                    shrinkTodo(element, list);
+                    activate = false;
+                }
+            });
+
+            let activateStatus = false;
+            list.addEventListener("change", () => {
+                if (!activateStatus) {
+                    element.status = "Finished"
+                    activateStatus = true;
+                    homeProject.removeTodo(element);
+                    createHomePage(homeProject);
+                } else {
+                    element.status = "Not Finished"
+                    activateStatus = false;
+                }
+            });
+        }
+    }
 
 }
 
@@ -83,11 +151,13 @@ function submitTodo(currentProject) {
         const todoPriority = todoForm.todoPriority.value;
         const todoNote = todoForm.todoNote.value;
 
-        currentProject.addTodo(todoName, todoDescription, todoDueDate, todoPriority, todoNote);
-        createHomePage(currentProject);
-        todoStorage(currentProject.getTodo(), currentProject.name); // Save the whole todo list
-        console.log(currentProject.getTodo())
-        dialog.close();
+        if(todoName){
+            currentProject.addTodo(todoName, todoDescription, todoDueDate, todoPriority, todoNote);
+            createHomePage(currentProject);
+            todoStorage(currentProject.getTodo(), currentProject.name); // Save the whole todo list
+            console.log(currentProject.getTodo())
+            dialog.close();
+        }
     });
 }
 
@@ -134,12 +204,12 @@ function addProject() {
         const projectList = document.querySelector("#projectList");
         const newProject = document.createElement("button");
         newProject.setAttribute("class", "projectButtons")
-        newProject.dataset.id = createProjectObject(pName.value);
-
-        newProject.textContent = pName.value;
-        projectList.appendChild(newProject);
-        
-        
+        if (pName.value) 
+        {
+            newProject.textContent = pName.value;
+            newProject.dataset.id = createProjectObject(pName.value);
+            projectList.appendChild(newProject);
+        }
     });
 }
 
@@ -149,17 +219,15 @@ function importProjectButtons() {
     if(allProjects) {
         for (const element of allProjects) {
         
-        if (element.name !== "Home") {
-            const projectList = document.querySelector("#projectList");
-            const newProject = document.createElement("button");
-            newProject.dataset.id = element.id;
-            newProject.setAttribute("class", "projectButtons")
+            if (element.name !== "Home") {
+                const projectList = document.querySelector("#projectList");
+                const newProject = document.createElement("button");
+                newProject.dataset.id = element.id;
+                newProject.setAttribute("class", "projectButtons")
 
-            newProject.textContent = element.name;
-            projectList.appendChild(newProject);
-            
-        }
-
+                newProject.textContent = element.name;
+                projectList.appendChild(newProject);
+            }
         }
     }
 }
@@ -170,10 +238,10 @@ function changeProjectsButtons() {
     if(projectButtons) {
         for(const element of projectButtons) {
             element.addEventListener("click", () => {
-                console.log("clicked")
+                switchProject(element.dataset.id)
             });
         }
     }
 }
 
-export { createHomePage, submitTodo }
+export { createHomePage, submitTodo, createSwitchedProject}
