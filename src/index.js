@@ -1,5 +1,5 @@
 import { createProject, importProjectFunctions } from "./logicJS/createProject.js";
-import { createHomePage, submitTodo } from "./displayJS/display.js";
+import { createHomePage, submitTodo, homeButton } from "./displayJS/display.js";
 import { getStorage, mergeList, allStorage, getAllStorage, mergeAllStorage, removeStoredTodo } from "./storageJS/storage.js";
 import { createAllStorage} from "./logicJS/allProjects.js";
 import { createTodo } from "./logicJS/createTodo.js";
@@ -21,14 +21,15 @@ if (!homeExist) {
     mergeList(homeProject, homeProject.name);
     createHomePage(homeProject);
     submitTodo(homeProject);
+    homeButton(homeProject);
 } else {
     const homePWF = allProjects.todoProjects[0];
     const homeProject = importProjectFunctions(homePWF.name, homePWF.id, homePWF.todoList)  //Add functions
     mergeList(homeProject, homeProject.name);
     createHomePage(homeProject);
     submitTodo(homeProject);
+    homeButton(homeProject);
 }
-
 
 
 
@@ -43,7 +44,5 @@ function createProjectObject (projectName) {;
 }
 
 
-
-console.log(allProjects);
 
 export {createProjectObject}

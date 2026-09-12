@@ -140,10 +140,17 @@ function createSwitchedProject(homeProject) {
 
 }
 
-function submitTodo(currentProject) {
+let localEvent;
+
+function submitTodo(currentProject) { //Where to fix the error for the list getting written again
     const submitButton = document.querySelector("#todoSubmit");
     const dialog = document.querySelector("#my-dialog");
-    submitButton.addEventListener("click", () => {
+
+    if(localEvent) {
+        submitButton.removeEventListener("click", localEvent);
+    }
+
+    localEvent = (event) => {
         event.preventDefault();
         const todoName = todoForm.todoName.value;
         const todoDescription = todoForm.todoDescription.value;
@@ -151,15 +158,17 @@ function submitTodo(currentProject) {
         const todoPriority = todoForm.todoPriority.value;
         const todoNote = todoForm.todoNote.value;
 
-        if(todoName){
-            currentProject.addTodo(todoName, todoDescription, todoDueDate, todoPriority, todoNote);
-            createHomePage(currentProject);
-            todoStorage(currentProject.getTodo(), currentProject.name); // Save the whole todo list
-            console.log(currentProject.getTodo())
-            dialog.close();
-        }
-    });
+        currentProject.addTodo(todoName, todoDescription, todoDueDate, todoPriority, todoNote);
+        createHomePage(currentProject);
+        todoStorage(currentProject.getTodo(), currentProject.name); // Save the whole todo list
+        console.log(currentProject.getTodo())
+        dialog.close();
+    }
+
+    
+    submitButton.addEventListener("click", localEvent);
 }
+
 
 function expandTodo(todoItem, listLoc) {
     const extendTodo = document.createElement("ul");
@@ -194,7 +203,7 @@ function shrinkTodo(todoItem, listLoc) {
     }
 }
 
-function addProject() {
+function addProject() { //project submit button
     const createProject = document.querySelector("#projectSubmit");
 
     createProject.addEventListener("click", () => {
@@ -244,4 +253,14 @@ function changeProjectsButtons() {
     }
 }
 
-export { createHomePage, submitTodo, createSwitchedProject}
+function homeButton(homeProject) {
+    const homeButton = document.querySelector("#homeButton")
+
+    homeButton.addEventListener("click", () => {
+        createSwitchedProject(homeProject);
+    });
+}
+
+
+
+export { createHomePage, submitTodo, createSwitchedProject, homeButton}
