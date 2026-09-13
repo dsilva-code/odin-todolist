@@ -31,15 +31,23 @@ function allStorage(projects) {
 
 function getAllStorage() {
     const projectsDeserial = JSON.parse(localStorage.getItem("all"));
+    console.log(projectsDeserial);
     if(projectsDeserial){
         return projectsDeserial.todoProjects;
     }
     
 }
 
+function removeProjectAllStorage(removeIndex) {
+    const allStorages = getAllStorage();
+    allStorages.splice(removeIndex, 1);
+    allStorage(allStorages);
+
+}
+
 function mergeAllStorage(projects) {
     const allStoredProjects = getAllStorage();
-
+    console.log(allStoredProjects)
     if(allStoredProjects) {
         for (const element of allStoredProjects) {
             projects.addProject(element);
@@ -50,4 +58,4 @@ function mergeAllStorage(projects) {
 
 
 
-export { todoStorage, getStorage, mergeList, removeStoredTodo, allStorage, getAllStorage, mergeAllStorage}
+export { todoStorage, getStorage, mergeList, removeStoredTodo, allStorage, getAllStorage, mergeAllStorage, removeProjectAllStorage}

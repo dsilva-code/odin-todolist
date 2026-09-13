@@ -22,9 +22,10 @@ if (!homeExist) {
     createHomePage(homeProject);
     submitTodo(homeProject);
     homeButton(homeProject);
+    
 } else {
     const homePWF = allProjects.todoProjects[0];
-    const homeProject = importProjectFunctions(homePWF.name, homePWF.id, homePWF.todoList)  //Add functions
+    const homeProject = importProjectFunctions(homePWF.name, homePWF.id, [])  //Add functions
     mergeList(homeProject, homeProject.name);
     createHomePage(homeProject);
     submitTodo(homeProject);

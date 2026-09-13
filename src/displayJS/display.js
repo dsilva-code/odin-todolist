@@ -1,4 +1,4 @@
-import { todoStorage, getStorage, getAllStorage} from "../storageJS/storage.js";
+import { todoStorage, getStorage, getAllStorage, removeProjectAllStorage} from "../storageJS/storage.js";
 import { createProjectObject } from "../index.js";
 import { switchProject } from "../logicJS/changeProject.js";
 
@@ -6,6 +6,7 @@ function createHomePage(homeProject) {
     addProject();
     importProjectButtons();
     changeProjectsButtons();
+    deleteProjects()
 
     const projectContent = document.querySelector("#projectContent")
     const currentProject = document.querySelector("#currentProject");
@@ -74,6 +75,7 @@ function createHomePage(homeProject) {
 function createSwitchedProject(homeProject) {
     addProject()
     changeProjectsButtons();
+    deleteProjects()
 
     const projectContent = document.querySelector("#projectContent")
     const currentProject = document.querySelector("#currentProject");
@@ -140,17 +142,19 @@ function createSwitchedProject(homeProject) {
 
 }
 
-let localEvent;
+let localEvent = null;
 
-function submitTodo(currentProject) { //Where to fix the error for the list getting written again
+function submitTodo(currentProject) { 
     const submitButton = document.querySelector("#todoSubmit");
     const dialog = document.querySelector("#my-dialog");
+    
 
     if(localEvent) {
         submitButton.removeEventListener("click", localEvent);
     }
 
     localEvent = (event) => {
+        
         event.preventDefault();
         const todoName = todoForm.todoName.value;
         const todoDescription = todoForm.todoDescription.value;
@@ -158,10 +162,10 @@ function submitTodo(currentProject) { //Where to fix the error for the list gett
         const todoPriority = todoForm.todoPriority.value;
         const todoNote = todoForm.todoNote.value;
 
+        
         currentProject.addTodo(todoName, todoDescription, todoDueDate, todoPriority, todoNote);
-        createHomePage(currentProject);
         todoStorage(currentProject.getTodo(), currentProject.name); // Save the whole todo list
-        console.log(currentProject.getTodo())
+        createSwitchedProject(currentProject);
         dialog.close();
     }
 
@@ -203,10 +207,16 @@ function shrinkTodo(todoItem, listLoc) {
     }
 }
 
+let createEvent;
+
 function addProject() { //project submit button
     const createProject = document.querySelector("#projectSubmit");
 
-    createProject.addEventListener("click", () => {
+    if(createEvent) {
+        createProject.removeEventListener("click", createEvent);
+    }
+
+    createEvent = (event) => {
         event.preventDefault();
         const pName = document.querySelector("#projectName");
         
@@ -215,11 +225,21 @@ function addProject() { //project submit button
         newProject.setAttribute("class", "projectButtons")
         if (pName.value) 
         {
+            const projectButtons = document.querySelectorAll(".projectButtons");
             newProject.textContent = pName.value;
             newProject.dataset.id = createProjectObject(pName.value);
-            projectList.appendChild(newProject);
+            
+            for(const element of projectButtons) {
+                element.remove();
+            }
+            
+            importProjectButtons();
+            deleteProjects() 
         }
-    });
+    };
+
+    createProject.addEventListener("click", createEvent)
+
 }
 
 function importProjectButtons() {
@@ -229,6 +249,7 @@ function importProjectButtons() {
         for (const element of allProjects) {
         
             if (element.name !== "Home") {
+                
                 const projectList = document.querySelector("#projectList");
                 const newProject = document.createElement("button");
                 newProject.dataset.id = element.id;
@@ -236,19 +257,28 @@ function importProjectButtons() {
 
                 newProject.textContent = element.name;
                 projectList.appendChild(newProject);
+                changeProjectsButtons();
             }
         }
     }
 }
 
+let projectEvent;
+
 function changeProjectsButtons() {
     const projectButtons = document.querySelectorAll(".projectButtons")
-    
+
     if(projectButtons) {
+        projectEvent = (event) => {
+            switchProject(event.currentTarget.dataset.id)
+        }
+
         for(const element of projectButtons) {
-            element.addEventListener("click", () => {
-                switchProject(element.dataset.id)
-            });
+
+            element.removeEventListener("click", projectEvent);
+
+
+            element.addEventListener("click", projectEvent);
         }
     }
 }
@@ -258,9 +288,65 @@ function homeButton(homeProject) {
 
     homeButton.addEventListener("click", () => {
         createSwitchedProject(homeProject);
+        submitTodo(homeProject)
     });
 }
 
+function deleteProjects() {
+
+    const allProjects = getAllStorage();
+    console.log(allProjects);
+
+    const deleteProjectButton = document.querySelector("#dProject");
+    const deleteProjectDisplay = document.querySelector("#deleteProjects")
+
+    if(allProjects) {
+        const allDeleteProjectButtons = document.querySelectorAll(".dProjectButtons");
+
+        for (const element of allDeleteProjectButtons) {
+            if(element) {
+                element.remove();
+            }
+            
+        }
+
+        for (const element of allProjects) {
+            if (element.name !== "Home") {
+                const newProject = document.createElement("button");
+                newProject.dataset.id = element.id;
+                newProject.setAttribute("class", "dProjectButtons")
+
+                newProject.textContent = element.name;
+                deleteProjectDisplay.appendChild(newProject);
+                changeProjectsButtons();
+            }
+        }
+    }
+
+
+    const allDeleteProjectButtons = document.querySelectorAll(".dProjectButtons");
+    
+
+    for (const element of allDeleteProjectButtons) {
+        element.addEventListener("click", () => {
+            const allStorage = getAllStorage();
+            let removeIndex = allStorage.findIndex(obj => obj.id === element.dataset.id)
+            removeProjectAllStorage(removeIndex);
+            
+            const projectButtons = document.querySelectorAll(".projectButtons");
+            
+            for(const element of projectButtons) {
+                element.remove();
+            }
+
+            importProjectButtons();
+
+
+            element.remove();
+        
+        });
+    }
+}
 
 
 export { createHomePage, submitTodo, createSwitchedProject, homeButton}
