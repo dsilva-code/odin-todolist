@@ -1,4 +1,4 @@
-import { todoStorage, getStorage, getAllStorage, removeProjectAllStorage} from "../storageJS/storage.js";
+import { todoStorage, getStorage, getAllStorage, removeProjectAllStorage, getAllStorageRaw} from "../storageJS/storage.js";
 import { createProjectObject } from "../index.js";
 import { switchProject } from "../logicJS/changeProject.js";
 
@@ -245,6 +245,8 @@ function addProject() { //project submit button
 function importProjectButtons() {
     const allProjects = getAllStorage();
 
+    
+
     if(allProjects) {
         for (const element of allProjects) {
         
@@ -261,6 +263,27 @@ function importProjectButtons() {
             }
         }
     }
+    else {
+        const allProjectsRaw = getAllStorageRaw();
+
+
+        if(allProjectsRaw) {
+            for (const element of allProjectsRaw) {
+            
+                if (element.name !== "Home") {
+                    
+                    const projectList = document.querySelector("#projectList");
+                    const newProject = document.createElement("button");
+                    newProject.dataset.id = element.id;
+                    newProject.setAttribute("class", "projectButtons")
+
+                    newProject.textContent = element.name;
+                    projectList.appendChild(newProject);
+                    changeProjectsButtons();
+                }
+            }
+        }
+    }
 }
 
 let projectEvent;
@@ -270,6 +293,7 @@ function changeProjectsButtons() {
 
     if(projectButtons) {
         projectEvent = (event) => {
+
             switchProject(event.currentTarget.dataset.id)
         }
 
@@ -293,12 +317,9 @@ function homeButton(homeProject) {
 }
 
 function deleteProjects() {
-
-    const allProjects = getAllStorage();
-    console.log(allProjects);
-
     const deleteProjectButton = document.querySelector("#dProject");
     const deleteProjectDisplay = document.querySelector("#deleteProjects")
+    const allProjects = getAllStorage();
 
     if(allProjects) {
         const allDeleteProjectButtons = document.querySelectorAll(".dProjectButtons");
@@ -310,8 +331,10 @@ function deleteProjects() {
             
         }
 
-        for (const element of allProjects) {
+        for (const element of allProjects) { 
+
             if (element.name !== "Home") {
+                
                 const newProject = document.createElement("button");
                 newProject.dataset.id = element.id;
                 newProject.setAttribute("class", "dProjectButtons")
@@ -321,30 +344,58 @@ function deleteProjects() {
                 changeProjectsButtons();
             }
         }
-    }
 
+    } else {
+
+        const allProjectsRaw = getAllStorageRaw();
+
+        if(allProjectsRaw){
+            const allDeleteProjectButtons = document.querySelectorAll(".dProjectButtons");
+            for (const element of allDeleteProjectButtons) {
+                if(element) {
+                    element.remove();
+                }
+                
+            }
+
+            for (const element of allProjectsRaw) { 
+                if (element.name !== "Home") {
+                    
+                    const newProject = document.createElement("button");
+                    newProject.dataset.id = element.id;
+                    newProject.setAttribute("class", "dProjectButtons")
+
+                    newProject.textContent = element.name;
+                    deleteProjectDisplay.appendChild(newProject);
+                    changeProjectsButtons();
+                }
+            }
+        }
+    }
 
     const allDeleteProjectButtons = document.querySelectorAll(".dProjectButtons");
     
-
     for (const element of allDeleteProjectButtons) {
+
         element.addEventListener("click", () => {
-            const allStorage = getAllStorage();
-            let removeIndex = allStorage.findIndex(obj => obj.id === element.dataset.id)
-            removeProjectAllStorage(removeIndex);
+            const allStorage = getAllStorageRaw();
+            
+            let removeIndex;
+            if(allStorage) {
+                removeIndex = allStorage.findIndex(obj => obj.id === element.dataset.id)
+                removeProjectAllStorage(removeIndex);
+            }
             
             const projectButtons = document.querySelectorAll(".projectButtons");
-            
-            for(const element of projectButtons) {
-                element.remove();
+            if (projectButtons) {
+                for(const btn of projectButtons) {
+                    btn.remove();
+                }
+                importProjectButtons();
             }
-
-            importProjectButtons();
-
-
             element.remove();
-        
         });
+        
     }
 }
 
