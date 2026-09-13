@@ -44,7 +44,7 @@ function getAllStorageRaw() {
 }
 
 function removeProjectAllStorage(removeIndex) {
-    const allStorages = getAllStorageRaw();
+    const allStorages = getAllStorageRaw;
     allStorages.splice(removeIndex, 1);
     allStorage(allStorages);
 

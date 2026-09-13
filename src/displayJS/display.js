@@ -286,22 +286,21 @@ function importProjectButtons() {
     }
 }
 
-let projectEvent;
+let projectEvent = (event) => {
+        switchProject(event.currentTarget.dataset.id)
+    }
 
 function changeProjectsButtons() {
+
     const projectButtons = document.querySelectorAll(".projectButtons")
 
     if(projectButtons) {
-        projectEvent = (event) => {
-
-            switchProject(event.currentTarget.dataset.id)
-        }
 
         for(const element of projectButtons) {
+            console.log("test")
+            
 
             element.removeEventListener("click", projectEvent);
-
-
             element.addEventListener("click", projectEvent);
         }
     }
@@ -378,11 +377,13 @@ function deleteProjects() {
     for (const element of allDeleteProjectButtons) {
 
         element.addEventListener("click", () => {
-            const allStorage = getAllStorageRaw();
+            const allStorage = getAllStorageRaw().todoProjects;
             
             let removeIndex;
             if(allStorage) {
+                
                 removeIndex = allStorage.findIndex(obj => obj.id === element.dataset.id)
+                
                 removeProjectAllStorage(removeIndex);
             }
             
@@ -395,7 +396,7 @@ function deleteProjects() {
             }
             element.remove();
         });
-        
+
     }
 }
 
